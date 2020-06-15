@@ -86,15 +86,13 @@
 <meta property="og:site_name" content="Zhuyah">
 <meta property="og:description" content="1. Redis源码下载及安装12345wget http:&#x2F;&#x2F;download.redis.io&#x2F;releases&#x2F;redis-6.0.5.tar.gztar -xzvf redis-6.0.5.tar.gzcd redis-6.0.5make 若出现 &#x2F;bin&#x2F;sh: cc: command not found 错误，缺少gcc，若安装后直接make，还">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://yoursite.com/.com//20200615215813.png">
-<meta property="og:image" content="http://yoursite.com/.com//20200615215813.png">
-<meta property="og:image" content="http://yoursite.com/.com//20200615215813.png">
-<meta property="og:image" content="http://yoursite.com/.com//20200615215813.png">
+<meta property="og:image" content="http://yoursite.com/2020/06/15/redis-standalone/20200615215813.png">
+<meta property="og:image" content="http://yoursite.com/2020/06/15/redis-standalone/20200615215813.png">
 <meta property="article:published_time" content="2020-06-15T14:16:19.000Z">
-<meta property="article:modified_time" content="2020-06-15T15:04:14.235Z">
+<meta property="article:modified_time" content="2020-06-15T15:27:52.339Z">
 <meta property="article:author" content="Zhuyah">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://yoursite.com/.com//20200615215813.png">
+<meta name="twitter:image" content="http://yoursite.com/2020/06/15/redis-standalone/20200615215813.png">
 
 
 
@@ -307,13 +305,13 @@
         <h5 id="1-Redis源码下载及安装"><a href="#1-Redis源码下载及安装" class="headerlink" title="1. Redis源码下载及安装"></a>1. Redis源码下载及安装</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">wget http:&#x2F;&#x2F;download.redis.io&#x2F;releases&#x2F;redis-6.0.5.tar.gz</span><br><span class="line">tar -xzvf redis-6.0.5.tar.gz</span><br><span class="line"></span><br><span class="line">cd redis-6.0.5</span><br><span class="line">make</span><br></pre></td></tr></table></figure>
 <p>若出现 <code>/bin/sh: cc: command not found</code> 错误，缺少gcc，若安装后直接make，还会报错<code>zmalloc.h:50:31: fatal error: jemalloc/jemalloc.h: No such file or directory</code></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">yum install gcc</span><br><span class="line">make MALLOC&#x3D;libc</span><br></pre></td></tr></table></figure>
-<p>若出现以下错误，还需要升级gcc版本<br><img src="/.com//20200615215813.png" alt><br><img src="/.com//20200615215813.png" alt><br><img src="/.com//20200615215813.png" alt="test"></p>
+<p>若出现以下错误，还需要升级gcc版本<br><img src="/2020/06/15/redis-standalone/20200615215813.png" alt></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">yum -y install centos-release-scl</span><br><span class="line">yum -y install devtoolset-9-gcc devtoolset-9-gcc-c++ devtoolset-9-binutils</span><br><span class="line">scl enable devtoolset-9 bash</span><br><span class="line"></span><br><span class="line">[root@localhost redis-6.0.5]# gcc --version</span><br><span class="line">gcc (GCC) 9.1.1 20190605 (Red Hat 9.1.1-2)</span><br><span class="line"></span><br><span class="line"># 继续安装</span><br><span class="line">make</span><br></pre></td></tr></table></figure>
 
 <h5 id="2-配置开机自启动"><a href="#2-配置开机自启动" class="headerlink" title="2. 配置开机自启动"></a>2. 配置开机自启动</h5><p>拷贝init文件</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cp &#x2F;opt&#x2F;software&#x2F;redis-6.0.5&#x2F;utils&#x2F;redis_init_script &#x2F;etc&#x2F;init.d&#x2F;redis</span><br></pre></td></tr></table></figure>
 <p>修改执行目录vi  /etc/init.d/redis<br>/opt/software/redis-6.0.5/src/redis-server<br>/opt/software/redis-6.0.5/src/redis-cli</p>
-<p><img src="/.com//20200615215813.png" alt></p>
+<p><img src="/2020/06/15/redis-standalone/20200615215813.png" alt></p>
 <p>设置后台启动vi redis.conf</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">daemonize yes</span><br></pre></td></tr></table></figure>
 
