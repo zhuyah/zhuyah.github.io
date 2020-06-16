@@ -229,6 +229,143 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/06/16/redis-sentinel/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Zhuyah">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zhuyah">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/06/16/redis-sentinel/" itemprop="url">Redis一主二从三哨兵</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-06-16T09:27:25-04:00">
+                2020-06-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><img src="/2020/06/16/redis-sentinel/20200616214028.png" alt></p>
+<h5 id="1-Redis安装"><a href="#1-Redis安装" class="headerlink" title="1.Redis安装"></a>1.Redis安装</h5><h6 id="1-1-基本安装"><a href="#1-1-基本安装" class="headerlink" title="1.1 基本安装"></a>1.1 基本安装</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">wget http:&#x2F;&#x2F;download.redis.io&#x2F;releases&#x2F;redis-6.0.5.tar.gz</span><br><span class="line">tar -xzvf redis-6.0.5.tar.gz</span><br><span class="line">cd redis-6.0.5</span><br><span class="line"></span><br><span class="line">yum -y isntall gcc</span><br><span class="line">yum -y install centos-release-scl</span><br><span class="line">yum -y install devtoolset-9-gcc devtoolset-9-gcc-c++ devtoolset-9-binutils</span><br><span class="line">scl enable devtoolset-9 bash</span><br><span class="line"></span><br><span class="line">[root@localhost redis-6.0.5]# gcc --version</span><br><span class="line">gcc (GCC) 9.1.1 20190605 (Red Hat 9.1.1-2)</span><br><span class="line"></span><br><span class="line">#make</span><br><span class="line">make</span><br></pre></td></tr></table></figure>
+<h6 id="1-2-配置开机启动"><a href="#1-2-配置开机启动" class="headerlink" title="1.2 配置开机启动"></a>1.2 配置开机启动</h6><p>准备配置文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cp &#x2F;opt&#x2F;software&#x2F;redis-6.0.5&#x2F;utils&#x2F;redis_init_script &#x2F;usr&#x2F;local&#x2F;bin&#x2F;redis</span><br><span class="line">cp &#x2F;opt&#x2F;software&#x2F;redis-6.0.5&#x2F;utils&#x2F;redis_init_script &#x2F;usr&#x2F;local&#x2F;bin&#x2F;redis-sentinel</span><br></pre></td></tr></table></figure>
+<p>修改端口与执行路径</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">port 6380</span><br><span class="line">daemonize yes</span><br><span class="line"></span><br><span class="line">REDISPORT&#x3D;6379</span><br><span class="line">EXEC&#x3D;&#x2F;opt&#x2F;software&#x2F;redis-6.0.5&#x2F;src&#x2F;redis-server</span><br><span class="line">CLIEXEC&#x3D;&#x2F;opt&#x2F;software&#x2F;redis-6.0.5&#x2F;src&#x2F;redis-cli</span><br><span class="line"></span><br><span class="line">REDISPORT&#x3D;6380</span><br><span class="line">EXEC&#x3D;&#x2F;opt&#x2F;software&#x2F;redis-6.0.5&#x2F;src&#x2F;redis-server</span><br><span class="line">CLIEXEC&#x3D;&#x2F;opt&#x2F;software&#x2F;redis-6.0.5&#x2F;src&#x2F;redis-cli</span><br></pre></td></tr></table></figure>
+<p>添加开机启动</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">chkconfig --add redis</span><br><span class="line">chkconfig redis on</span><br><span class="line"></span><br><span class="line">chkconfig --add redis-sentinel</span><br><span class="line">chkconfig redis-sentinel on</span><br></pre></td></tr></table></figure>
+<h5 id="2-主节点配置修改"><a href="#2-主节点配置修改" class="headerlink" title="2.主节点配置修改"></a>2.主节点配置修改</h5><p>开启允许远程</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># bind 127.0.0.1          #注释此行</span><br><span class="line">protected-mode no</span><br></pre></td></tr></table></figure>
+<p>在所有节点conf文件下配置</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">#配置log文件</span><br><span class="line">logfile &#x2F;var&#x2F;log&#x2F;redis&#x2F;reids.log			# 主节点或从节点</span><br><span class="line">logfile &#x2F;var&#x2F;log&#x2F;redis&#x2F;reids-sentinel.log	# 哨兵节点</span><br></pre></td></tr></table></figure>
+
+<h5 id="3-从节点配置修改"><a href="#3-从节点配置修改" class="headerlink" title="3.从节点配置修改"></a>3.从节点配置修改</h5><p>在2个从节点上配置master</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">slaveof 192.168.0.116 6379</span><br></pre></td></tr></table></figure>
+
+<p>分别启动主节点和从节点，通过info replication已经可以看到集群创建成功</p>
+<p><img src="/2020/06/16/redis-sentinel/20200616234313.png" alt></p>
+<h5 id="4-哨兵节点配置修改"><a href="#4-哨兵节点配置修改" class="headerlink" title="4.哨兵节点配置修改"></a>4.哨兵节点配置修改</h5><h5 id="5-故障转移测试"><a href="#5-故障转移测试" class="headerlink" title="5.故障转移测试"></a>5.故障转移测试</h5>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/06/15/redis-standalone/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -536,7 +673,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-count">3</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>

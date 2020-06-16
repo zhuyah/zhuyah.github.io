@@ -79,20 +79,20 @@
 
 
 
-<meta name="description" content="1. Redis源码下载及安装12345wget http:&#x2F;&#x2F;download.redis.io&#x2F;releases&#x2F;redis-6.0.5.tar.gztar -xzvf redis-6.0.5.tar.gzcd redis-6.0.5make 若出现 &#x2F;bin&#x2F;sh: cc: command not found 错误，缺少gcc，若安装后直接make，还">
+<meta name="description" content="1.Redis安装1.1 基本安装1234567891011121314wget http:&#x2F;&#x2F;download.redis.io&#x2F;releases&#x2F;redis-6.0.5.tar.gztar -xzvf redis-6.0.5.tar.gzcd redis-6.0.5yum -y isntall gccyum -y install centos-rele">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Redis单节点安装">
-<meta property="og:url" content="http://yoursite.com/2020/06/15/redis-standalone/index.html">
+<meta property="og:title" content="Redis一主二从三哨兵">
+<meta property="og:url" content="http://yoursite.com/2020/06/16/redis-sentinel/index.html">
 <meta property="og:site_name" content="Zhuyah">
-<meta property="og:description" content="1. Redis源码下载及安装12345wget http:&#x2F;&#x2F;download.redis.io&#x2F;releases&#x2F;redis-6.0.5.tar.gztar -xzvf redis-6.0.5.tar.gzcd redis-6.0.5make 若出现 &#x2F;bin&#x2F;sh: cc: command not found 错误，缺少gcc，若安装后直接make，还">
+<meta property="og:description" content="1.Redis安装1.1 基本安装1234567891011121314wget http:&#x2F;&#x2F;download.redis.io&#x2F;releases&#x2F;redis-6.0.5.tar.gztar -xzvf redis-6.0.5.tar.gzcd redis-6.0.5yum -y isntall gccyum -y install centos-rele">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://yoursite.com/2020/06/15/redis-standalone/20200615212117.png">
-<meta property="og:image" content="http://yoursite.com/2020/06/15/redis-standalone/20200615215813.png">
-<meta property="article:published_time" content="2020-06-15T14:16:19.000Z">
-<meta property="article:modified_time" content="2020-06-15T15:33:40.626Z">
+<meta property="og:image" content="http://yoursite.com/2020/06/16/redis-sentinel/20200616214028.png">
+<meta property="og:image" content="http://yoursite.com/2020/06/16/redis-sentinel/20200616234313.png">
+<meta property="article:published_time" content="2020-06-16T13:27:25.000Z">
+<meta property="article:modified_time" content="2020-06-16T15:48:36.600Z">
 <meta property="article:author" content="Zhuyah">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://yoursite.com/2020/06/15/redis-standalone/20200615212117.png">
+<meta name="twitter:image" content="http://yoursite.com/2020/06/16/redis-sentinel/20200616214028.png">
 
 
 
@@ -122,13 +122,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2020/06/15/redis-standalone/"/>
+  <link rel="canonical" href="http://yoursite.com/2020/06/16/redis-sentinel/"/>
 
 
 
 
 
-  <title>Redis单节点安装 | Zhuyah</title>
+  <title>Redis一主二从三哨兵 | Zhuyah</title>
   
 
 
@@ -235,7 +235,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/06/15/redis-standalone/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/06/16/redis-sentinel/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Zhuyah">
@@ -252,7 +252,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Redis单节点安装</h1>
+          <h1 class="post-title" itemprop="name headline">Redis一主二从三哨兵</h1>
         
 
         <div class="post-meta">
@@ -264,8 +264,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-06-15T10:16:19-04:00">
-                2020-06-15
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-06-16T09:27:25-04:00">
+                2020-06-16
               </time>
             
 
@@ -302,27 +302,25 @@
       
 
       
-        <h5 id="1-Redis源码下载及安装"><a href="#1-Redis源码下载及安装" class="headerlink" title="1. Redis源码下载及安装"></a>1. Redis源码下载及安装</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">wget http:&#x2F;&#x2F;download.redis.io&#x2F;releases&#x2F;redis-6.0.5.tar.gz</span><br><span class="line">tar -xzvf redis-6.0.5.tar.gz</span><br><span class="line"></span><br><span class="line">cd redis-6.0.5</span><br><span class="line">make</span><br></pre></td></tr></table></figure>
-<p>若出现 <code>/bin/sh: cc: command not found</code> 错误，缺少gcc，若安装后直接make，还会报错<code>zmalloc.h:50:31: fatal error: jemalloc/jemalloc.h: No such file or directory</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">yum install gcc</span><br><span class="line">make MALLOC&#x3D;libc</span><br></pre></td></tr></table></figure>
-<p>若出现以下错误，还需要升级gcc版本<br><img src="/2020/06/15/redis-standalone/20200615212117.png" alt></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">yum -y install centos-release-scl</span><br><span class="line">yum -y install devtoolset-9-gcc devtoolset-9-gcc-c++ devtoolset-9-binutils</span><br><span class="line">scl enable devtoolset-9 bash</span><br><span class="line"></span><br><span class="line">[root@localhost redis-6.0.5]# gcc --version</span><br><span class="line">gcc (GCC) 9.1.1 20190605 (Red Hat 9.1.1-2)</span><br><span class="line"></span><br><span class="line"># 继续安装</span><br><span class="line">make</span><br></pre></td></tr></table></figure>
-
-<h5 id="2-配置开机自启动"><a href="#2-配置开机自启动" class="headerlink" title="2. 配置开机自启动"></a>2. 配置开机自启动</h5><p>拷贝init文件</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cp &#x2F;opt&#x2F;software&#x2F;redis-6.0.5&#x2F;utils&#x2F;redis_init_script &#x2F;etc&#x2F;init.d&#x2F;redis</span><br></pre></td></tr></table></figure>
-<p>修改执行目录vi  /etc/init.d/redis<br>/opt/software/redis-6.0.5/src/redis-server<br>/opt/software/redis-6.0.5/src/redis-cli</p>
-<p><img src="/2020/06/15/redis-standalone/20200615215813.png" alt></p>
-<p>设置后台启动vi redis.conf</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">daemonize yes</span><br></pre></td></tr></table></figure>
-
-<p>添加reids服务</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chkconfig --add redis</span><br></pre></td></tr></table></figure>
-
+        <p><img src="/2020/06/16/redis-sentinel/20200616214028.png" alt></p>
+<h5 id="1-Redis安装"><a href="#1-Redis安装" class="headerlink" title="1.Redis安装"></a>1.Redis安装</h5><h6 id="1-1-基本安装"><a href="#1-1-基本安装" class="headerlink" title="1.1 基本安装"></a>1.1 基本安装</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">wget http:&#x2F;&#x2F;download.redis.io&#x2F;releases&#x2F;redis-6.0.5.tar.gz</span><br><span class="line">tar -xzvf redis-6.0.5.tar.gz</span><br><span class="line">cd redis-6.0.5</span><br><span class="line"></span><br><span class="line">yum -y isntall gcc</span><br><span class="line">yum -y install centos-release-scl</span><br><span class="line">yum -y install devtoolset-9-gcc devtoolset-9-gcc-c++ devtoolset-9-binutils</span><br><span class="line">scl enable devtoolset-9 bash</span><br><span class="line"></span><br><span class="line">[root@localhost redis-6.0.5]# gcc --version</span><br><span class="line">gcc (GCC) 9.1.1 20190605 (Red Hat 9.1.1-2)</span><br><span class="line"></span><br><span class="line">#make</span><br><span class="line">make</span><br></pre></td></tr></table></figure>
+<h6 id="1-2-配置开机启动"><a href="#1-2-配置开机启动" class="headerlink" title="1.2 配置开机启动"></a>1.2 配置开机启动</h6><p>准备配置文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cp &#x2F;opt&#x2F;software&#x2F;redis-6.0.5&#x2F;utils&#x2F;redis_init_script &#x2F;usr&#x2F;local&#x2F;bin&#x2F;redis</span><br><span class="line">cp &#x2F;opt&#x2F;software&#x2F;redis-6.0.5&#x2F;utils&#x2F;redis_init_script &#x2F;usr&#x2F;local&#x2F;bin&#x2F;redis-sentinel</span><br></pre></td></tr></table></figure>
+<p>修改端口与执行路径</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">port 6380</span><br><span class="line">daemonize yes</span><br><span class="line"></span><br><span class="line">REDISPORT&#x3D;6379</span><br><span class="line">EXEC&#x3D;&#x2F;opt&#x2F;software&#x2F;redis-6.0.5&#x2F;src&#x2F;redis-server</span><br><span class="line">CLIEXEC&#x3D;&#x2F;opt&#x2F;software&#x2F;redis-6.0.5&#x2F;src&#x2F;redis-cli</span><br><span class="line"></span><br><span class="line">REDISPORT&#x3D;6380</span><br><span class="line">EXEC&#x3D;&#x2F;opt&#x2F;software&#x2F;redis-6.0.5&#x2F;src&#x2F;redis-server</span><br><span class="line">CLIEXEC&#x3D;&#x2F;opt&#x2F;software&#x2F;redis-6.0.5&#x2F;src&#x2F;redis-cli</span><br></pre></td></tr></table></figure>
 <p>添加开机启动</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chkconfig redis on</span><br></pre></td></tr></table></figure>
-<p>基本命令</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">service redis start</span><br><span class="line">service redis stop</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">chkconfig --add redis</span><br><span class="line">chkconfig redis on</span><br><span class="line"></span><br><span class="line">chkconfig --add redis-sentinel</span><br><span class="line">chkconfig redis-sentinel on</span><br></pre></td></tr></table></figure>
+<h5 id="2-主节点配置修改"><a href="#2-主节点配置修改" class="headerlink" title="2.主节点配置修改"></a>2.主节点配置修改</h5><p>开启允许远程</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># bind 127.0.0.1          #注释此行</span><br><span class="line">protected-mode no</span><br></pre></td></tr></table></figure>
+<p>在所有节点conf文件下配置</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">#配置log文件</span><br><span class="line">logfile &#x2F;var&#x2F;log&#x2F;redis&#x2F;reids.log			# 主节点或从节点</span><br><span class="line">logfile &#x2F;var&#x2F;log&#x2F;redis&#x2F;reids-sentinel.log	# 哨兵节点</span><br></pre></td></tr></table></figure>
 
+<h5 id="3-从节点配置修改"><a href="#3-从节点配置修改" class="headerlink" title="3.从节点配置修改"></a>3.从节点配置修改</h5><p>在2个从节点上配置master</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">slaveof 192.168.0.116 6379</span><br></pre></td></tr></table></figure>
+
+<p>分别启动主节点和从节点，通过info replication已经可以看到集群创建成功</p>
+<p><img src="/2020/06/16/redis-sentinel/20200616234313.png" alt></p>
+<h5 id="4-哨兵节点配置修改"><a href="#4-哨兵节点配置修改" class="headerlink" title="4.哨兵节点配置修改"></a>4.哨兵节点配置修改</h5><h5 id="5-故障转移测试"><a href="#5-故障转移测试" class="headerlink" title="5.故障转移测试"></a>5.故障转移测试</h5>
       
     </div>
     
@@ -346,8 +344,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2020/06/14/hexo-github/" rel="next" title="Hexo与Github搭建">
-                <i class="fa fa-chevron-left"></i> Hexo与Github搭建
+              <a href="/2020/06/15/redis-standalone/" rel="next" title="Redis单节点安装">
+                <i class="fa fa-chevron-left"></i> Redis单节点安装
               </a>
             
           </div>
@@ -355,10 +353,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2020/06/16/redis-sentinel/" rel="prev" title="Redis一主二从三哨兵">
-                Redis一主二从三哨兵 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -472,7 +466,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-Redis源码下载及安装"><span class="nav-number">1.</span> <span class="nav-text">1. Redis源码下载及安装</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-配置开机自启动"><span class="nav-number">2.</span> <span class="nav-text">2. 配置开机自启动</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-Redis安装"><span class="nav-number">1.</span> <span class="nav-text">1.Redis安装</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#1-1-基本安装"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 基本安装</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#1-2-配置开机启动"><span class="nav-number">1.2.</span> <span class="nav-text">1.2 配置开机启动</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-主节点配置修改"><span class="nav-number">2.</span> <span class="nav-text">2.主节点配置修改</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-从节点配置修改"><span class="nav-number">3.</span> <span class="nav-text">3.从节点配置修改</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-哨兵节点配置修改"><span class="nav-number">4.</span> <span class="nav-text">4.哨兵节点配置修改</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#5-故障转移测试"><span class="nav-number">5.</span> <span class="nav-text">5.故障转移测试</span></a></li></ol></div>
             
 
           </div>
