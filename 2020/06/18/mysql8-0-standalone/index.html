@@ -79,20 +79,20 @@
 
 
 
-<meta name="description" content="1. Redis源码下载及安装12345wget http:&#x2F;&#x2F;download.redis.io&#x2F;releases&#x2F;redis-6.0.5.tar.gztar -xzvf redis-6.0.5.tar.gzcd redis-6.0.5make 若出现 &#x2F;bin&#x2F;sh: cc: command not found 错误，缺少gcc，若安装后直接make，还">
+<meta name="description" content="1.MySQL8.0下载1wget https:&#x2F;&#x2F;cdn.mysql.com&#x2F;&#x2F;Downloads&#x2F;MySQL-8.0&#x2F;mysql-8.0.20-el7-x86_64.tar.gz 如果觉得官网下载速度太慢，可以使用国内镜像，例如: 1wget http:&#x2F;&#x2F;mirror.bit.edu.cn&#x2F;mysql&amp;">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Redis单节点安装">
-<meta property="og:url" content="http://yoursite.com/2020/06/15/redis-standalone/index.html">
+<meta property="og:title" content="mysql8.0安装(CentOS7)">
+<meta property="og:url" content="http://yoursite.com/2020/06/18/mysql8-0-standalone/index.html">
 <meta property="og:site_name" content="Zhuyah">
-<meta property="og:description" content="1. Redis源码下载及安装12345wget http:&#x2F;&#x2F;download.redis.io&#x2F;releases&#x2F;redis-6.0.5.tar.gztar -xzvf redis-6.0.5.tar.gzcd redis-6.0.5make 若出现 &#x2F;bin&#x2F;sh: cc: command not found 错误，缺少gcc，若安装后直接make，还">
+<meta property="og:description" content="1.MySQL8.0下载1wget https:&#x2F;&#x2F;cdn.mysql.com&#x2F;&#x2F;Downloads&#x2F;MySQL-8.0&#x2F;mysql-8.0.20-el7-x86_64.tar.gz 如果觉得官网下载速度太慢，可以使用国内镜像，例如: 1wget http:&#x2F;&#x2F;mirror.bit.edu.cn&#x2F;mysql&amp;">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://yoursite.com/2020/06/15/redis-standalone/20200615212117.png">
-<meta property="og:image" content="http://yoursite.com/2020/06/15/redis-standalone/20200615215813.png">
-<meta property="article:published_time" content="2020-06-15T14:16:19.000Z">
-<meta property="article:modified_time" content="2020-06-17T13:09:31.362Z">
+<meta property="og:image" content="http://yoursite.com/2020/06/18/mysql8-0-standalone/20200624225726.png">
+<meta property="og:image" content="http://yoursite.com/2020/06/18/mysql8-0-standalone/20200624230803.png">
+<meta property="article:published_time" content="2020-06-18T15:06:43.000Z">
+<meta property="article:modified_time" content="2020-06-18T15:09:06.490Z">
 <meta property="article:author" content="Zhuyah">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://yoursite.com/2020/06/15/redis-standalone/20200615212117.png">
+<meta name="twitter:image" content="http://yoursite.com/2020/06/18/mysql8-0-standalone/20200624225726.png">
 
 
 
@@ -122,13 +122,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2020/06/15/redis-standalone/"/>
+  <link rel="canonical" href="http://yoursite.com/2020/06/18/mysql8-0-standalone/"/>
 
 
 
 
 
-  <title>Redis单节点安装 | Zhuyah</title>
+  <title>mysql8.0安装(CentOS7) | Zhuyah</title>
   
 
 
@@ -235,7 +235,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/06/15/redis-standalone/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/06/18/mysql8-0-standalone/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Zhuyah">
@@ -252,7 +252,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Redis单节点安装</h1>
+          <h1 class="post-title" itemprop="name headline">mysql8.0安装(CentOS7)</h1>
         
 
         <div class="post-meta">
@@ -264,8 +264,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-06-15T10:16:19-04:00">
-                2020-06-15
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-06-18T11:06:43-04:00">
+                2020-06-18
               </time>
             
 
@@ -302,31 +302,28 @@
       
 
       
-        <h5 id="1-Redis源码下载及安装"><a href="#1-Redis源码下载及安装" class="headerlink" title="1. Redis源码下载及安装"></a>1. Redis源码下载及安装</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">wget http:&#x2F;&#x2F;download.redis.io&#x2F;releases&#x2F;redis-6.0.5.tar.gz</span><br><span class="line">tar -xzvf redis-6.0.5.tar.gz</span><br><span class="line"></span><br><span class="line">cd redis-6.0.5</span><br><span class="line">make</span><br></pre></td></tr></table></figure>
-<p>若出现 <code>/bin/sh: cc: command not found</code> 错误，缺少gcc，若安装后直接make，还会报错<code>zmalloc.h:50:31: fatal error: jemalloc/jemalloc.h: No such file or directory</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">yum install gcc</span><br><span class="line">make MALLOC&#x3D;libc</span><br></pre></td></tr></table></figure>
-<p>若出现以下错误，还需要升级gcc版本<br><img src="/2020/06/15/redis-standalone/20200615212117.png" alt></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">yum -y install centos-release-scl</span><br><span class="line">yum -y install devtoolset-9-gcc devtoolset-9-gcc-c++ devtoolset-9-binutils</span><br><span class="line">scl enable devtoolset-9 bash</span><br><span class="line"></span><br><span class="line">[root@localhost redis-6.0.5]# gcc --version</span><br><span class="line">gcc (GCC) 9.1.1 20190605 (Red Hat 9.1.1-2)</span><br><span class="line"></span><br><span class="line"># 继续安装</span><br><span class="line">make</span><br></pre></td></tr></table></figure>
+        <h5 id="1-MySQL8-0下载"><a href="#1-MySQL8-0下载" class="headerlink" title="1.MySQL8.0下载"></a>1.MySQL8.0下载</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget https:&#x2F;&#x2F;cdn.mysql.com&#x2F;&#x2F;Downloads&#x2F;MySQL-8.0&#x2F;mysql-8.0.20-el7-x86_64.tar.gz</span><br></pre></td></tr></table></figure>
+<p>如果觉得官网下载速度太慢，可以使用国内镜像，例如:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget http:&#x2F;&#x2F;mirror.bit.edu.cn&#x2F;mysql&#x2F;downloads&#x2F;MySQL-8.0&#x2F;mysql-8.0.18-el7-x86_64.tar.gz</span><br></pre></td></tr></table></figure>
+<h5 id="2-mariadb卸载"><a href="#2-mariadb卸载" class="headerlink" title="2.mariadb卸载"></a>2.mariadb卸载</h5><p>MySQL被Oracle收购后，Linux中开始默认集成MariaDB，安装MySQL前最好卸载自带的MariaDB，以免冲突导致安装失败。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># 检查是否存在</span><br><span class="line">[root@localhost software]# yum list installed | grep mariadb</span><br><span class="line">mariadb-libs.x86_64                  1:5.5.56-2.el7                 @anaconda</span><br><span class="line"></span><br><span class="line">#卸载</span><br><span class="line">yum -y remove mariadb-libs.x86_64</span><br></pre></td></tr></table></figure>
 
-<h5 id="2-配置开机自启动"><a href="#2-配置开机自启动" class="headerlink" title="2. 配置开机自启动"></a>2. 配置开机自启动</h5><p>拷贝init文件</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cp &#x2F;opt&#x2F;software&#x2F;redis-6.0.5&#x2F;utils&#x2F;redis_init_script &#x2F;etc&#x2F;init.d&#x2F;redis</span><br></pre></td></tr></table></figure>
-<p>修改执行目录vi  /etc/init.d/redis<br>/opt/software/redis-6.0.5/src/redis-server<br>/opt/software/redis-6.0.5/src/redis-cli</p>
-<p><img src="/2020/06/15/redis-standalone/20200615215813.png" alt></p>
-<p>设置后台启动vi redis.conf</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">daemonize yes</span><br></pre></td></tr></table></figure>
+<h5 id="3-添加组和用户"><a href="#3-添加组和用户" class="headerlink" title="3.添加组和用户"></a>3.添加组和用户</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">groupadd mysql				&#x2F;&#x2F;创建mysql群组</span><br><span class="line">useradd -g mysql mysql		&#x2F;&#x2F;创建mysql用户，属于mysql group</span><br></pre></td></tr></table></figure>
 
-<p>添加reids服务</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chkconfig --add redis</span><br></pre></td></tr></table></figure>
+<h5 id="4-解压及安装"><a href="#4-解压及安装" class="headerlink" title="4.解压及安装"></a>4.解压及安装</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p &#x2F;usr&#x2F;local&#x2F;mysql					&#x2F;&#x2F;创建mysql目录</span><br><span class="line">tar -xzvf mysql-8.0.18-el7-x86_64.tar.gz -C &#x2F;usr&#x2F;local&#x2F;mysql</span><br></pre></td></tr></table></figure>
+<p>在mysql bin(/usr/local/mysql/mysql-8.0.18-el7-x86_64/bin)目录下执行如下命令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.&#x2F;mysqld --initialize --user&#x3D;mysql --datadir&#x3D;&#x2F;usr&#x2F;local&#x2F;mysql&#x2F;data --basedir&#x3D;&#x2F;usr&#x2F;local&#x2F;mysql</span><br></pre></td></tr></table></figure>
+<p>临时密码： a4pCw:-(0ZDo</p>
+<p>启动</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">.&#x2F;mysql_ssl_rsa_setup  --datadir&#x3D;&#x2F;usr&#x2F;local&#x2F;mysql&#x2F;data</span><br><span class="line">chown -R mysql: mysql &#x2F;usr&#x2F;local&#x2F;mysql</span><br><span class="line">.&#x2F;mysqld_safe &amp;</span><br><span class="line">.&#x2F;mysql -uroot -p</span><br></pre></td></tr></table></figure>
 
-<p>添加开机启动</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chkconfig redis on</span><br></pre></td></tr></table></figure>
-<p>基本命令</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">service redis start</span><br><span class="line">service redis stop</span><br></pre></td></tr></table></figure>
+<h5 id="5-修改密码及远程访问"><a href="#5-修改密码及远程访问" class="headerlink" title="5.修改密码及远程访问"></a>5.修改密码及远程访问</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">![20200624225726](20200624225726.png)alter user &#39;root&#39;@&#39;localhost&#39; identified by &#39;123456&#39;;</span><br><span class="line">use mysql;</span><br><span class="line">update user set host&#x3D;&#39;%&#39; where user&#x3D;&#39;root&#39;;</span><br><span class="line">flush privileges;</span><br></pre></td></tr></table></figure>
+<p>若出现</p>
+<p><img src="/2020/06/18/mysql8-0-standalone/20200624225726.png" alt></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ALTER USER &#39;root&#39;@&#39;%&#39; IDENTIFIED WITH mysql_native_password BY &#39;123456&#39;;</span><br><span class="line">flush privileges;</span><br></pre></td></tr></table></figure>
 
-
-<h5 id="3-允许远程和设置密码"><a href="#3-允许远程和设置密码" class="headerlink" title="3. 允许远程和设置密码"></a>3. 允许远程和设置密码</h5><p>允许远程</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">#bind 127.0.0.1		&#x2F;&#x2F;注释此行</span><br><span class="line">protected-mode no	&#x2F;&#x2F;从yes改为no</span><br><span class="line">daemonize yes</span><br></pre></td></tr></table></figure>
-<p>设置密码：<br><code>requirepass foobared</code></p>
+<h5 id="6-创建数据库与新用户"><a href="#6-创建数据库与新用户" class="headerlink" title="6.创建数据库与新用户"></a>6.创建数据库与新用户</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">#创建数据库</span><br><span class="line">create database test_db;</span><br><span class="line">#创建用户</span><br><span class="line">create user &#39;test&#39;@&#39;%&#39; identified by &#39;123456&#39;;</span><br><span class="line">#授权</span><br><span class="line">grant all privileges on test_db.* to &#39;test&#39;@&#39;%&#39; with grant option;</span><br><span class="line">flush privileges;</span><br></pre></td></tr></table></figure>
+<h5 id="7-Navicat连接"><a href="#7-Navicat连接" class="headerlink" title="7.Navicat连接"></a>7.Navicat连接</h5><p><img src="/2020/06/18/mysql8-0-standalone/20200624230803.png" alt></p>
 
       
     </div>
@@ -351,8 +348,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2020/06/14/hexo-github/" rel="next" title="Hexo与Github搭建">
-                <i class="fa fa-chevron-left"></i> Hexo与Github搭建
+              <a href="/2020/06/17/redis-persistence/" rel="next" title="Redis持久化方式简单对比">
+                <i class="fa fa-chevron-left"></i> Redis持久化方式简单对比
               </a>
             
           </div>
@@ -360,10 +357,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2020/06/16/redis-sentinel/" rel="prev" title="Redis一主二从三哨兵">
-                Redis一主二从三哨兵 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -477,7 +470,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-Redis源码下载及安装"><span class="nav-number">1.</span> <span class="nav-text">1. Redis源码下载及安装</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-配置开机自启动"><span class="nav-number">2.</span> <span class="nav-text">2. 配置开机自启动</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-允许远程和设置密码"><span class="nav-number">3.</span> <span class="nav-text">3. 允许远程和设置密码</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-MySQL8-0下载"><span class="nav-number">1.</span> <span class="nav-text">1.MySQL8.0下载</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-mariadb卸载"><span class="nav-number">2.</span> <span class="nav-text">2.mariadb卸载</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-添加组和用户"><span class="nav-number">3.</span> <span class="nav-text">3.添加组和用户</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-解压及安装"><span class="nav-number">4.</span> <span class="nav-text">4.解压及安装</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#5-修改密码及远程访问"><span class="nav-number">5.</span> <span class="nav-text">5.修改密码及远程访问</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#6-创建数据库与新用户"><span class="nav-number">6.</span> <span class="nav-text">6.创建数据库与新用户</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#7-Navicat连接"><span class="nav-number">7.</span> <span class="nav-text">7.Navicat连接</span></a></li></ol></div>
             
 
           </div>

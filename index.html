@@ -229,6 +229,147 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/06/18/mysql8-0-standalone/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Zhuyah">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zhuyah">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/06/18/mysql8-0-standalone/" itemprop="url">mysql8.0安装(CentOS7)</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-06-18T11:06:43-04:00">
+                2020-06-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h5 id="1-MySQL8-0下载"><a href="#1-MySQL8-0下载" class="headerlink" title="1.MySQL8.0下载"></a>1.MySQL8.0下载</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget https:&#x2F;&#x2F;cdn.mysql.com&#x2F;&#x2F;Downloads&#x2F;MySQL-8.0&#x2F;mysql-8.0.20-el7-x86_64.tar.gz</span><br></pre></td></tr></table></figure>
+<p>如果觉得官网下载速度太慢，可以使用国内镜像，例如:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget http:&#x2F;&#x2F;mirror.bit.edu.cn&#x2F;mysql&#x2F;downloads&#x2F;MySQL-8.0&#x2F;mysql-8.0.18-el7-x86_64.tar.gz</span><br></pre></td></tr></table></figure>
+<h5 id="2-mariadb卸载"><a href="#2-mariadb卸载" class="headerlink" title="2.mariadb卸载"></a>2.mariadb卸载</h5><p>MySQL被Oracle收购后，Linux中开始默认集成MariaDB，安装MySQL前最好卸载自带的MariaDB，以免冲突导致安装失败。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># 检查是否存在</span><br><span class="line">[root@localhost software]# yum list installed | grep mariadb</span><br><span class="line">mariadb-libs.x86_64                  1:5.5.56-2.el7                 @anaconda</span><br><span class="line"></span><br><span class="line">#卸载</span><br><span class="line">yum -y remove mariadb-libs.x86_64</span><br></pre></td></tr></table></figure>
+
+<h5 id="3-添加组和用户"><a href="#3-添加组和用户" class="headerlink" title="3.添加组和用户"></a>3.添加组和用户</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">groupadd mysql				&#x2F;&#x2F;创建mysql群组</span><br><span class="line">useradd -g mysql mysql		&#x2F;&#x2F;创建mysql用户，属于mysql group</span><br></pre></td></tr></table></figure>
+
+<h5 id="4-解压及安装"><a href="#4-解压及安装" class="headerlink" title="4.解压及安装"></a>4.解压及安装</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p &#x2F;usr&#x2F;local&#x2F;mysql					&#x2F;&#x2F;创建mysql目录</span><br><span class="line">tar -xzvf mysql-8.0.18-el7-x86_64.tar.gz -C &#x2F;usr&#x2F;local&#x2F;mysql</span><br></pre></td></tr></table></figure>
+<p>在mysql bin(/usr/local/mysql/mysql-8.0.18-el7-x86_64/bin)目录下执行如下命令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.&#x2F;mysqld --initialize --user&#x3D;mysql --datadir&#x3D;&#x2F;usr&#x2F;local&#x2F;mysql&#x2F;data --basedir&#x3D;&#x2F;usr&#x2F;local&#x2F;mysql</span><br></pre></td></tr></table></figure>
+<p>临时密码： a4pCw:-(0ZDo</p>
+<p>启动</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">.&#x2F;mysql_ssl_rsa_setup  --datadir&#x3D;&#x2F;usr&#x2F;local&#x2F;mysql&#x2F;data</span><br><span class="line">chown -R mysql: mysql &#x2F;usr&#x2F;local&#x2F;mysql</span><br><span class="line">.&#x2F;mysqld_safe &amp;</span><br><span class="line">.&#x2F;mysql -uroot -p</span><br></pre></td></tr></table></figure>
+
+<h5 id="5-修改密码及远程访问"><a href="#5-修改密码及远程访问" class="headerlink" title="5.修改密码及远程访问"></a>5.修改密码及远程访问</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">![20200624225726](20200624225726.png)alter user &#39;root&#39;@&#39;localhost&#39; identified by &#39;123456&#39;;</span><br><span class="line">use mysql;</span><br><span class="line">update user set host&#x3D;&#39;%&#39; where user&#x3D;&#39;root&#39;;</span><br><span class="line">flush privileges;</span><br></pre></td></tr></table></figure>
+<p>若出现</p>
+<p><img src="/2020/06/18/mysql8-0-standalone/20200624225726.png" alt></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ALTER USER &#39;root&#39;@&#39;%&#39; IDENTIFIED WITH mysql_native_password BY &#39;123456&#39;;</span><br><span class="line">flush privileges;</span><br></pre></td></tr></table></figure>
+
+<h5 id="6-创建数据库与新用户"><a href="#6-创建数据库与新用户" class="headerlink" title="6.创建数据库与新用户"></a>6.创建数据库与新用户</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">#创建数据库</span><br><span class="line">create database test_db;</span><br><span class="line">#创建用户</span><br><span class="line">create user &#39;test&#39;@&#39;%&#39; identified by &#39;123456&#39;;</span><br><span class="line">#授权</span><br><span class="line">grant all privileges on test_db.* to &#39;test&#39;@&#39;%&#39; with grant option;</span><br><span class="line">flush privileges;</span><br></pre></td></tr></table></figure>
+<h5 id="7-Navicat连接"><a href="#7-Navicat连接" class="headerlink" title="7.Navicat连接"></a>7.Navicat连接</h5><p><img src="/2020/06/18/mysql8-0-standalone/20200624230803.png" alt></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/06/17/redis-persistence/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -826,7 +967,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-count">5</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
