@@ -248,7 +248,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2020/06/17/redis-persistence/" itemprop="url">Redis持久化方式简单对</a></h1>
+                <a class="post-title-link" href="/2020/06/17/redis-persistence/" itemprop="url">Redis持久化方式简单对比</a></h1>
         
 
         <div class="post-meta">
@@ -303,6 +303,7 @@
             <h5 id="1-RDB"><a href="#1-RDB" class="headerlink" title="1.RDB"></a>1.RDB</h5><blockquote>
 <ul>
 <li>RDB是基于快照方式，每一次都是dump全量数据</li>
+<li>默认方式</li>
 <li>Fork子进程进行快照写入，不影响父进程</li>
 <li>会丢失最后一次快照后的数据</li>
 <li>恢复快</li>
@@ -314,7 +315,7 @@
 <li>AOF，append only file，以追加方式记录日志</li>
 <li>记录所有写操作，文件体积大，恢复慢</li>
 <li>always 每次写都同步写入磁盘，影响redis性能</li>
-<li>everysec 每秒执行一次，显示将多个命令同步到磁盘，默认方式</li>
+<li>everysec 每秒执行一次，显示将多个命令同步到磁盘，AOF默认策略</li>
 <li>no 不进行持久化</li>
 </ul>
 </blockquote>
