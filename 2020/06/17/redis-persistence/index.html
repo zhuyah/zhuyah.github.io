@@ -79,20 +79,17 @@
 
 
 
-<meta name="description" content="1. Redis源码下载及安装12345wget http:&#x2F;&#x2F;download.redis.io&#x2F;releases&#x2F;redis-6.0.5.tar.gztar -xzvf redis-6.0.5.tar.gzcd redis-6.0.5make 若出现 &#x2F;bin&#x2F;sh: cc: command not found 错误，缺少gcc，若安装后直接make，还">
+<meta name="description" content="1.RDB  RDB是基于快照方式，每一次都是dump全量数据 Fork子进程进行快照写入，不影响父进程 会丢失最后一次快照后的数据 恢复快 save 60 5000 60秒内5000此写入触发快照，可以配置多个，任何一种满足都会触发   2.AOF  AOF，append only file，以追加方式记录日志 记录所有写操作，文件体积大，恢复慢 always 每次写都同步写入磁盘，影响redi">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Redis单节点安装">
-<meta property="og:url" content="http://yoursite.com/2020/06/15/redis-standalone/index.html">
+<meta property="og:title" content="Redis持久化方式简单对">
+<meta property="og:url" content="http://yoursite.com/2020/06/17/redis-persistence/index.html">
 <meta property="og:site_name" content="Zhuyah">
-<meta property="og:description" content="1. Redis源码下载及安装12345wget http:&#x2F;&#x2F;download.redis.io&#x2F;releases&#x2F;redis-6.0.5.tar.gztar -xzvf redis-6.0.5.tar.gzcd redis-6.0.5make 若出现 &#x2F;bin&#x2F;sh: cc: command not found 错误，缺少gcc，若安装后直接make，还">
+<meta property="og:description" content="1.RDB  RDB是基于快照方式，每一次都是dump全量数据 Fork子进程进行快照写入，不影响父进程 会丢失最后一次快照后的数据 恢复快 save 60 5000 60秒内5000此写入触发快照，可以配置多个，任何一种满足都会触发   2.AOF  AOF，append only file，以追加方式记录日志 记录所有写操作，文件体积大，恢复慢 always 每次写都同步写入磁盘，影响redi">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://yoursite.com/2020/06/15/redis-standalone/20200615212117.png">
-<meta property="og:image" content="http://yoursite.com/2020/06/15/redis-standalone/20200615215813.png">
-<meta property="article:published_time" content="2020-06-15T14:16:19.000Z">
-<meta property="article:modified_time" content="2020-06-17T13:09:31.362Z">
+<meta property="article:published_time" content="2020-06-17T14:43:41.000Z">
+<meta property="article:modified_time" content="2020-06-18T14:27:58.914Z">
 <meta property="article:author" content="Zhuyah">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://yoursite.com/2020/06/15/redis-standalone/20200615212117.png">
 
 
 
@@ -122,13 +119,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2020/06/15/redis-standalone/"/>
+  <link rel="canonical" href="http://yoursite.com/2020/06/17/redis-persistence/"/>
 
 
 
 
 
-  <title>Redis单节点安装 | Zhuyah</title>
+  <title>Redis持久化方式简单对 | Zhuyah</title>
   
 
 
@@ -235,7 +232,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/06/15/redis-standalone/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/06/17/redis-persistence/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Zhuyah">
@@ -252,7 +249,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Redis单节点安装</h1>
+          <h1 class="post-title" itemprop="name headline">Redis持久化方式简单对</h1>
         
 
         <div class="post-meta">
@@ -264,8 +261,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-06-15T10:16:19-04:00">
-                2020-06-15
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-06-17T10:43:41-04:00">
+                2020-06-17
               </time>
             
 
@@ -302,31 +299,24 @@
       
 
       
-        <h5 id="1-Redis源码下载及安装"><a href="#1-Redis源码下载及安装" class="headerlink" title="1. Redis源码下载及安装"></a>1. Redis源码下载及安装</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">wget http:&#x2F;&#x2F;download.redis.io&#x2F;releases&#x2F;redis-6.0.5.tar.gz</span><br><span class="line">tar -xzvf redis-6.0.5.tar.gz</span><br><span class="line"></span><br><span class="line">cd redis-6.0.5</span><br><span class="line">make</span><br></pre></td></tr></table></figure>
-<p>若出现 <code>/bin/sh: cc: command not found</code> 错误，缺少gcc，若安装后直接make，还会报错<code>zmalloc.h:50:31: fatal error: jemalloc/jemalloc.h: No such file or directory</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">yum install gcc</span><br><span class="line">make MALLOC&#x3D;libc</span><br></pre></td></tr></table></figure>
-<p>若出现以下错误，还需要升级gcc版本<br><img src="/2020/06/15/redis-standalone/20200615212117.png" alt></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">yum -y install centos-release-scl</span><br><span class="line">yum -y install devtoolset-9-gcc devtoolset-9-gcc-c++ devtoolset-9-binutils</span><br><span class="line">scl enable devtoolset-9 bash</span><br><span class="line"></span><br><span class="line">[root@localhost redis-6.0.5]# gcc --version</span><br><span class="line">gcc (GCC) 9.1.1 20190605 (Red Hat 9.1.1-2)</span><br><span class="line"></span><br><span class="line"># 继续安装</span><br><span class="line">make</span><br></pre></td></tr></table></figure>
-
-<h5 id="2-配置开机自启动"><a href="#2-配置开机自启动" class="headerlink" title="2. 配置开机自启动"></a>2. 配置开机自启动</h5><p>拷贝init文件</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cp &#x2F;opt&#x2F;software&#x2F;redis-6.0.5&#x2F;utils&#x2F;redis_init_script &#x2F;etc&#x2F;init.d&#x2F;redis</span><br></pre></td></tr></table></figure>
-<p>修改执行目录vi  /etc/init.d/redis<br>/opt/software/redis-6.0.5/src/redis-server<br>/opt/software/redis-6.0.5/src/redis-cli</p>
-<p><img src="/2020/06/15/redis-standalone/20200615215813.png" alt></p>
-<p>设置后台启动vi redis.conf</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">daemonize yes</span><br></pre></td></tr></table></figure>
-
-<p>添加reids服务</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chkconfig --add redis</span><br></pre></td></tr></table></figure>
-
-<p>添加开机启动</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chkconfig redis on</span><br></pre></td></tr></table></figure>
-<p>基本命令</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">service redis start</span><br><span class="line">service redis stop</span><br></pre></td></tr></table></figure>
-
-
-<h5 id="3-允许远程和设置密码"><a href="#3-允许远程和设置密码" class="headerlink" title="3. 允许远程和设置密码"></a>3. 允许远程和设置密码</h5><p>允许远程</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">#bind 127.0.0.1		&#x2F;&#x2F;注释此行</span><br><span class="line">protected-mode no	&#x2F;&#x2F;从yes改为no</span><br><span class="line">daemonize yes</span><br></pre></td></tr></table></figure>
-<p>设置密码：<br><code>requirepass foobared</code></p>
+        <h5 id="1-RDB"><a href="#1-RDB" class="headerlink" title="1.RDB"></a>1.RDB</h5><blockquote>
+<ul>
+<li>RDB是基于快照方式，每一次都是dump全量数据</li>
+<li>Fork子进程进行快照写入，不影响父进程</li>
+<li>会丢失最后一次快照后的数据</li>
+<li>恢复快</li>
+<li>save 60 5000 60秒内5000此写入触发快照，可以配置多个，任何一种满足都会触发</li>
+</ul>
+</blockquote>
+<h5 id="2-AOF"><a href="#2-AOF" class="headerlink" title="2.AOF"></a>2.AOF</h5><blockquote>
+<ul>
+<li>AOF，append only file，以追加方式记录日志</li>
+<li>记录所有写操作，文件体积大，恢复慢</li>
+<li>always 每次写都同步写入磁盘，影响redis性能</li>
+<li>everysec 每秒执行一次，显示将多个命令同步到磁盘，默认方式</li>
+<li>no 不进行持久化</li>
+</ul>
+</blockquote>
 
       
     </div>
@@ -351,8 +341,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2020/06/14/hexo-github/" rel="next" title="Hexo与Github搭建">
-                <i class="fa fa-chevron-left"></i> Hexo与Github搭建
+              <a href="/2020/06/16/redis-sentinel/" rel="next" title="Redis一主二从三哨兵">
+                <i class="fa fa-chevron-left"></i> Redis一主二从三哨兵
               </a>
             
           </div>
@@ -360,10 +350,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2020/06/16/redis-sentinel/" rel="prev" title="Redis一主二从三哨兵">
-                Redis一主二从三哨兵 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -477,7 +463,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-Redis源码下载及安装"><span class="nav-number">1.</span> <span class="nav-text">1. Redis源码下载及安装</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-配置开机自启动"><span class="nav-number">2.</span> <span class="nav-text">2. 配置开机自启动</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-允许远程和设置密码"><span class="nav-number">3.</span> <span class="nav-text">3. 允许远程和设置密码</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-RDB"><span class="nav-number">1.</span> <span class="nav-text">1.RDB</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-AOF"><span class="nav-number">2.</span> <span class="nav-text">2.AOF</span></a></li></ol></div>
             
 
           </div>

@@ -229,6 +229,143 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/06/17/redis-persistence/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Zhuyah">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zhuyah">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/06/17/redis-persistence/" itemprop="url">Redis持久化方式简单对</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-06-17T10:43:41-04:00">
+                2020-06-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h5 id="1-RDB"><a href="#1-RDB" class="headerlink" title="1.RDB"></a>1.RDB</h5><blockquote>
+<ul>
+<li>RDB是基于快照方式，每一次都是dump全量数据</li>
+<li>Fork子进程进行快照写入，不影响父进程</li>
+<li>会丢失最后一次快照后的数据</li>
+<li>恢复快</li>
+<li>save 60 5000 60秒内5000此写入触发快照，可以配置多个，任何一种满足都会触发</li>
+</ul>
+</blockquote>
+<h5 id="2-AOF"><a href="#2-AOF" class="headerlink" title="2.AOF"></a>2.AOF</h5><blockquote>
+<ul>
+<li>AOF，append only file，以追加方式记录日志</li>
+<li>记录所有写操作，文件体积大，恢复慢</li>
+<li>always 每次写都同步写入磁盘，影响redis性能</li>
+<li>everysec 每秒执行一次，显示将多个命令同步到磁盘，默认方式</li>
+<li>no 不进行持久化</li>
+</ul>
+</blockquote>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/06/16/redis-sentinel/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -688,7 +825,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-count">4</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
