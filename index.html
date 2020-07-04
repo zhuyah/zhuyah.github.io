@@ -229,6 +229,138 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/07/04/zk-install/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Zhuyah">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zhuyah">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/07/04/zk-install/" itemprop="url">zk-install</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-07-04T08:57:37-04:00">
+                2020-07-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h5 id="1-Java安装及配置"><a href="#1-Java安装及配置" class="headerlink" title="1. Java安装及配置"></a>1. Java安装及配置</h5><p>下载Java及配置环境变量</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">wget https:&#x2F;&#x2F;download.oracle.com&#x2F;otn&#x2F;java&#x2F;jdk&#x2F;8u251-b08&#x2F;3d5a2bb8f8d4428bbe94aed7ec7ae784&#x2F;jdk-8u251-linux-x64.tar.gz?AuthParam&#x3D;1593840910_cc19dbef3fc51b66d4bd93656b39e2d7</span><br><span class="line">mkdir &#x2F;usr&#x2F;local&#x2F;java</span><br><span class="line">tar -xzvf jdk-8u251-linux-x64.tar.gz -C &#x2F;usr&#x2F;local&#x2F;java</span><br><span class="line"></span><br><span class="line"># 编辑&#x2F;etc&#x2F;profile文件,添加并保存：</span><br><span class="line">export JAVA_HOME&#x3D;&#x2F;usr&#x2F;local&#x2F;java&#x2F;jdk1.8.0_251</span><br><span class="line">export PATH&#x3D;$PATH:$JAVA_HOME&#x2F;bin</span><br><span class="line">export CLASSPATH&#x3D;$:CLASSPATH:$JAVA_HOME&#x2F;lib&#x2F;</span><br><span class="line"></span><br><span class="line"># 刷新环境变量</span><br><span class="line">source &#x2F;etc&#x2F;profile</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost jdk1.8.0_251]# java -version</span><br><span class="line">java version &quot;1.8.0_251&quot;</span><br><span class="line">Java(TM) SE Runtime Environment (build 1.8.0_251-b08)</span><br><span class="line">Java HotSpot(TM) 64-Bit Server VM (build 25.251-b08, mixed mode)</span><br></pre></td></tr></table></figure>
+<h5 id="2-ZooKeeper下载"><a href="#2-ZooKeeper下载" class="headerlink" title="2. ZooKeeper下载"></a>2. ZooKeeper下载</h5><p>下载带bin的文件,已经包含所有jar文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">apache-zookeeper-[version].tar.gz</span><br><span class="line"></span><br><span class="line">    Contains all the source files which can be built by running:</span><br><span class="line">    mvn clean install</span><br><span class="line"></span><br><span class="line">    To generate an aggregated apidocs for zookeeper-server and zookeeper-jute:</span><br><span class="line">    mvn javadoc:aggregate</span><br><span class="line">    (generated files will be at target&#x2F;site&#x2F;apidocs)</span><br><span class="line"></span><br><span class="line">apache-zookeeper-[version]-bin.tar.gz</span><br><span class="line"></span><br><span class="line">    Contains all the jar files required to run ZooKeeper</span><br><span class="line">    Full documentation can also be found in the docs folder</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">curl -O http:&#x2F;&#x2F;mirror.bit.edu.cn&#x2F;apache&#x2F;zookeeper&#x2F;zookeeper-3.6.1&#x2F;apache-zookeeper-3.6.1.tar.gz</span><br><span class="line">或</span><br><span class="line">wget http:&#x2F;&#x2F;mirror.bit.edu.cn&#x2F;apache&#x2F;zookeeper&#x2F;zookeeper-3.6.1&#x2F;apache-zookeeper-3.6.1.tar.gz</span><br></pre></td></tr></table></figure>
+<h6 id="3-解压及安装"><a href="#3-解压及安装" class="headerlink" title="3. 解压及安装"></a>3. 解压及安装</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">tar -xzvf apache-zookeeper-3.6.1.tar.gz -C &#x2F;usr&#x2F;local&#x2F;</span><br><span class="line">进入conf文件夹，复制配置文件，默认配置文件名为zoo.cfg</span><br><span class="line">cp zoo_sample.cfg zoo.cfg  </span><br><span class="line">修改</span><br><span class="line">dataDir&#x3D;&#x2F;usr&#x2F;local&#x2F;apache-zookeeper-3.6.1&#x2F;dataDir</span><br><span class="line">dataLogDir&#x3D;&#x2F;usr&#x2F;local&#x2F;apache-zookeeper-3.6.1&#x2F;dataLogDir</span><br></pre></td></tr></table></figure>
+
+<p>配置环境变量：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">export ZK_HOME&#x3D;&#x2F;usr&#x2F;local&#x2F;zookeeper&#x2F;apache-zookeeper-3.6.1-bin</span><br><span class="line">export PATH&#x3D;$ZK_HOME&#x2F;bin:$PATH</span><br><span class="line"></span><br><span class="line"># 刷新环境变量</span><br><span class="line">source &#x2F;etc&#x2F;profile</span><br></pre></td></tr></table></figure>
+<p>启动或停止zooKeeper</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost apache-zookeeper-3.6.1-bin]# zkServer.sh start</span><br><span class="line">ZooKeeper JMX enabled by default</span><br><span class="line">Using config: &#x2F;usr&#x2F;local&#x2F;zookeeper&#x2F;apache-zookeeper-3.6.1-bin&#x2F;bin&#x2F;..&#x2F;conf&#x2F;zoo.cfg</span><br><span class="line">Starting zookeeper ... STARTED</span><br><span class="line"></span><br><span class="line">[root@localhost apache-zookeeper-3.6.1-bin]# zkServer.sh stop</span><br><span class="line">ZooKeeper JMX enabled by default</span><br><span class="line">Using config: &#x2F;usr&#x2F;local&#x2F;zookeeper&#x2F;apache-zookeeper-3.6.1-bin&#x2F;bin&#x2F;..&#x2F;conf&#x2F;zoo.cfg</span><br><span class="line">Stopping zookeeper ... STOPPED</span><br></pre></td></tr></table></figure>
+
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/06/18/mysql8-0-standalone/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -972,7 +1104,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-count">6</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
