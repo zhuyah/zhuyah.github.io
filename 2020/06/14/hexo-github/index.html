@@ -87,7 +87,7 @@
 <meta property="og:description" content="1.安装Node.js1.1 Node.js 二进制包下载,源码安装make时间太长，且容易碰到gcc问题1https:&#x2F;&#x2F;cdn.npm.taobao.org&#x2F;dist&#x2F;node&#x2F;v14.4.0&#x2F;node-v14.4.0-linux-x64.tar.xz 1.2 解压缩与安装，.tar.xz文件分两步解压，先解压为tar文件，再完成解压">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-06-14T21:37:46.000Z">
-<meta property="article:modified_time" content="2020-07-04T13:41:21.156Z">
+<meta property="article:modified_time" content="2020-07-04T13:53:24.765Z">
 <meta property="article:author" content="Zhuyah">
 <meta name="twitter:card" content="summary">
 
@@ -281,11 +281,6 @@
           
 
           
-            <span class="post-meta-divider">|</span>
-            <span class="page-pv"><i class="fa fa-file-o"></i>
-            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
-            </span>
-          
 
           
 
@@ -322,6 +317,8 @@
 <p>发现再使用hexo new filename后会出现一个资源文件夹，可以将图片放在里面然后使用了</p>
 <h5 id="9-访客统计"><a href="#9-访客统计" class="headerlink" title="9.访客统计"></a>9.访客统计</h5><p>如果使用next主题，可以很方便开启busuanzi访客统计功能，只需要一步。<br>编辑theme/next/_config.yml配置文件,修改enable位true</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"># Show PV&#x2F;UV of the website&#x2F;page with busuanzi.</span><br><span class="line"># Get more information on http:&#x2F;&#x2F;ibruce.info&#x2F;2015&#x2F;04&#x2F;04&#x2F;busuanzi&#x2F;</span><br><span class="line">busuanzi_count:</span><br><span class="line">  # count values only if the other configs are false</span><br><span class="line">  enable: true     &#x2F;&#x2F;将此项改为true</span><br><span class="line">  # custom uv span for the whole site</span><br><span class="line">  site_uv: true</span><br><span class="line">  site_uv_header: &lt;i class&#x3D;&quot;fa fa-user&quot;&gt;&lt;&#x2F;i&gt;</span><br><span class="line">  site_uv_footer:</span><br><span class="line">  # custom pv span for the whole site</span><br><span class="line">  site_pv: true</span><br><span class="line">  site_pv_header: &lt;i class&#x3D;&quot;fa fa-eye&quot;&gt;&lt;&#x2F;i&gt;</span><br><span class="line">  site_pv_footer:</span><br><span class="line">  # custom pv span for one page only</span><br><span class="line">  page_pv: true</span><br><span class="line">  page_pv_header: &lt;i class&#x3D;&quot;fa fa-file-o&quot;&gt;&lt;&#x2F;i&gt;</span><br><span class="line">  page_pv_footer:</span><br></pre></td></tr></table></figure>
+<p>如果无法显示，可能是busuanzi域名过期了，js加载未成功，替换js为<a href="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" target="_blank" rel="noopener">https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js</a></p>
+<p>编辑themes/next/layout/_third-party/analytics/busuanzi-counter.swig，修改src路径。</p>
 
       
     </div>
@@ -512,26 +509,6 @@
 
 
         
-<div class="busuanzi-count">
-  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-
-  
-    <span class="site-uv">
-      <i class="fa fa-user"></i>
-      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
-      
-    </span>
-  
-
-  
-    <span class="site-pv">
-      <i class="fa fa-eye"></i>
-      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
-      
-    </span>
-  
-</div>
-
 
 
 
