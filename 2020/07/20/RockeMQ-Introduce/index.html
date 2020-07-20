@@ -79,20 +79,21 @@
 
 
 
-<meta name="description" content="1. Redis源码下载及安装12345wget http:&#x2F;&#x2F;download.redis.io&#x2F;releases&#x2F;redis-6.0.5.tar.gztar -xzvf redis-6.0.5.tar.gzcd redis-6.0.5make 若出现 &#x2F;bin&#x2F;sh: cc: command not found 错误，缺少gcc，若安装后直接make，还">
+<meta name="description" content="1.RocketMQ介绍 RocketMQ是一个纯Java开发的，分布式的消息队列中间件，具有低延迟，高并发，高可用等特点。  2.下载RocketMQ12345678910wget https:&#x2F;&#x2F;mirror.bit.edu.cn&#x2F;apache&#x2F;rocketmq&#x2F;4.7.1&#x2F;rocketmq-all-4.7.1-bin-release">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Redis单节点安装">
-<meta property="og:url" content="http://yoursite.com/2020/06/15/redis-standalone/index.html">
+<meta property="og:title" content="RockeMQ简单安装">
+<meta property="og:url" content="http://yoursite.com/2020/07/20/RockeMQ-Introduce/index.html">
 <meta property="og:site_name" content="Zhuyah">
-<meta property="og:description" content="1. Redis源码下载及安装12345wget http:&#x2F;&#x2F;download.redis.io&#x2F;releases&#x2F;redis-6.0.5.tar.gztar -xzvf redis-6.0.5.tar.gzcd redis-6.0.5make 若出现 &#x2F;bin&#x2F;sh: cc: command not found 错误，缺少gcc，若安装后直接make，还">
+<meta property="og:description" content="1.RocketMQ介绍 RocketMQ是一个纯Java开发的，分布式的消息队列中间件，具有低延迟，高并发，高可用等特点。  2.下载RocketMQ12345678910wget https:&#x2F;&#x2F;mirror.bit.edu.cn&#x2F;apache&#x2F;rocketmq&#x2F;4.7.1&#x2F;rocketmq-all-4.7.1-bin-release">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://yoursite.com/2020/06/15/redis-standalone/20200615212117.png">
-<meta property="og:image" content="http://yoursite.com/2020/06/15/redis-standalone/20200615215813.png">
-<meta property="article:published_time" content="2020-06-15T14:16:19.000Z">
-<meta property="article:modified_time" content="2020-06-17T13:09:31.362Z">
+<meta property="og:image" content="http://yoursite.com/2020/07/20/RockeMQ-Introduce/20200720221430.png">
+<meta property="og:image" content="http://yoursite.com/2020/07/20/RockeMQ-Introduce/20200720221954.png">
+<meta property="og:image" content="http://yoursite.com/2020/07/20/RockeMQ-Introduce/20200720222108.png">
+<meta property="article:published_time" content="2020-07-20T14:24:35.000Z">
+<meta property="article:modified_time" content="2020-07-20T14:26:38.716Z">
 <meta property="article:author" content="Zhuyah">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://yoursite.com/2020/06/15/redis-standalone/20200615212117.png">
+<meta name="twitter:image" content="http://yoursite.com/2020/07/20/RockeMQ-Introduce/20200720221430.png">
 
 
 
@@ -122,13 +123,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2020/06/15/redis-standalone/"/>
+  <link rel="canonical" href="http://yoursite.com/2020/07/20/RockeMQ-Introduce/"/>
 
 
 
 
 
-  <title>Redis单节点安装 | Zhuyah</title>
+  <title>RockeMQ简单安装 | Zhuyah</title>
   
 
 
@@ -235,7 +236,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/06/15/redis-standalone/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/07/20/RockeMQ-Introduce/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Zhuyah">
@@ -252,7 +253,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Redis单节点安装</h1>
+          <h1 class="post-title" itemprop="name headline">RockeMQ简单安装</h1>
         
 
         <div class="post-meta">
@@ -264,8 +265,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-06-15T10:16:19-04:00">
-                2020-06-15
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-07-20T10:24:35-04:00">
+                2020-07-20
               </time>
             
 
@@ -302,31 +303,29 @@
       
 
       
-        <h5 id="1-Redis源码下载及安装"><a href="#1-Redis源码下载及安装" class="headerlink" title="1. Redis源码下载及安装"></a>1. Redis源码下载及安装</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">wget http:&#x2F;&#x2F;download.redis.io&#x2F;releases&#x2F;redis-6.0.5.tar.gz</span><br><span class="line">tar -xzvf redis-6.0.5.tar.gz</span><br><span class="line"></span><br><span class="line">cd redis-6.0.5</span><br><span class="line">make</span><br></pre></td></tr></table></figure>
-<p>若出现 <code>/bin/sh: cc: command not found</code> 错误，缺少gcc，若安装后直接make，还会报错<code>zmalloc.h:50:31: fatal error: jemalloc/jemalloc.h: No such file or directory</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">yum install gcc</span><br><span class="line">make MALLOC&#x3D;libc</span><br></pre></td></tr></table></figure>
-<p>若出现以下错误，还需要升级gcc版本<br><img src="/2020/06/15/redis-standalone/20200615212117.png" alt></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">yum -y install centos-release-scl</span><br><span class="line">yum -y install devtoolset-9-gcc devtoolset-9-gcc-c++ devtoolset-9-binutils</span><br><span class="line">scl enable devtoolset-9 bash</span><br><span class="line"></span><br><span class="line">[root@localhost redis-6.0.5]# gcc --version</span><br><span class="line">gcc (GCC) 9.1.1 20190605 (Red Hat 9.1.1-2)</span><br><span class="line"></span><br><span class="line"># 继续安装</span><br><span class="line">make</span><br></pre></td></tr></table></figure>
+        <h5 id="1-RocketMQ介绍"><a href="#1-RocketMQ介绍" class="headerlink" title="1.RocketMQ介绍"></a>1.RocketMQ介绍</h5><blockquote>
+<p>RocketMQ是一个纯Java开发的，分布式的消息队列中间件，具有低延迟，高并发，高可用等特点。</p>
+</blockquote>
+<h5 id="2-下载RocketMQ"><a href="#2-下载RocketMQ" class="headerlink" title="2.下载RocketMQ"></a>2.下载RocketMQ</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">wget https:&#x2F;&#x2F;mirror.bit.edu.cn&#x2F;apache&#x2F;rocketmq&#x2F;4.7.1&#x2F;rocketmq-all-4.7.1-bin-release.zip</span><br><span class="line"></span><br><span class="line">unzip rocketmq-all-4.7.1-bin-release.zip</span><br><span class="line"></span><br><span class="line">#配置JDK vi &#x2F;etc&#x2F;profile,最后面添加</span><br><span class="line">export JAVA_HOME&#x3D;&#x2F;opt&#x2F;software&#x2F;jdk1.8.0_251</span><br><span class="line">export CLASSPATH&#x3D;$:CLASSPATH:$JAVA_HOME&#x2F;lib&#x2F;</span><br><span class="line">export PATH&#x3D;$PATH:$JAVA_HOME&#x2F;bin</span><br><span class="line"></span><br><span class="line">source &#x2F;etc&#x2F;profile</span><br></pre></td></tr></table></figure>
+<h5 id="3-启动"><a href="#3-启动" class="headerlink" title="3.启动"></a>3.启动</h5><p>由于测试，修改启动参数，vi runserver.sh，vi runbroker.sh</p>
+<blockquote>
+<p>JAVA_OPT=”${JAVA_OPT} -server -Xms4g -Xmx4g -Xmn2g -XX:MetaspaceSize=128m -XX:MaxMetaspaceSize=320m”</p>
+</blockquote>
+<p>修改为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">JAVA_OPT&#x3D;&quot;$&#123;JAVA_OPT&#125; -server -Xms256m -Xmx256m -Xmn128m -XX:MetaspaceSize&#x3D;128m -XX:MaxMetaspaceSize&#x3D;320m&quot;</span><br></pre></td></tr></table></figure>
 
-<h5 id="2-配置开机自启动"><a href="#2-配置开机自启动" class="headerlink" title="2. 配置开机自启动"></a>2. 配置开机自启动</h5><p>拷贝init文件</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cp &#x2F;opt&#x2F;software&#x2F;redis-6.0.5&#x2F;utils&#x2F;redis_init_script &#x2F;etc&#x2F;init.d&#x2F;redis</span><br></pre></td></tr></table></figure>
-<p>修改执行目录vi  /etc/init.d/redis<br>/opt/software/redis-6.0.5/src/redis-server<br>/opt/software/redis-6.0.5/src/redis-cli</p>
-<p><img src="/2020/06/15/redis-standalone/20200615215813.png" alt></p>
-<p>设置后台启动vi redis.conf</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">daemonize yes</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>JAVA_OPT=”${JAVA_OPT} -server -Xms8g -Xmx8g -Xmn4g”</p>
+</blockquote>
+<p>修改为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">JAVA_OPT&#x3D;&quot;$&#123;JAVA_OPT&#125; -server -Xms256m -Xmx256m -Xmn128m&quot;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">nohup bin&#x2F;mqnamesrv &amp;</span><br><span class="line">nohup sh bin&#x2F;mqbroker -n localhost:9876 &amp;</span><br></pre></td></tr></table></figure>
 
-<p>添加reids服务</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chkconfig --add redis</span><br></pre></td></tr></table></figure>
-
-<p>添加开机启动</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chkconfig redis on</span><br></pre></td></tr></table></figure>
-<p>基本命令</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">service redis start</span><br><span class="line">service redis stop</span><br></pre></td></tr></table></figure>
-
-
-<h5 id="3-允许远程和设置密码"><a href="#3-允许远程和设置密码" class="headerlink" title="3. 允许远程和设置密码"></a>3. 允许远程和设置密码</h5><p>允许远程</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">#bind 127.0.0.1		&#x2F;&#x2F;注释此行</span><br><span class="line">protected-mode no	&#x2F;&#x2F;从yes改为no</span><br><span class="line">daemonize yes</span><br></pre></td></tr></table></figure>
-<p>设置密码：<br><code>requirepass foobared</code></p>
+<p><img src="/2020/07/20/RockeMQ-Introduce/20200720221430.png" alt></p>
+<h5 id="4-测试"><a href="#4-测试" class="headerlink" title="4.测试"></a>4.测试</h5><p>Producer:</p>
+<p><img src="/2020/07/20/RockeMQ-Introduce/20200720221954.png" alt="20200720221954"></p>
+<p>Consumer:</p>
+<p><img src="/2020/07/20/RockeMQ-Introduce/20200720222108.png" alt="20200720222108"></p>
 
       
     </div>
@@ -351,8 +350,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2020/06/14/hexo-github/" rel="next" title="Hexo与Github搭建">
-                <i class="fa fa-chevron-left"></i> Hexo与Github搭建
+              <a href="/2020/07/04/zk-install/" rel="next" title="Centos安装ZooKeeper">
+                <i class="fa fa-chevron-left"></i> Centos安装ZooKeeper
               </a>
             
           </div>
@@ -360,10 +359,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2020/06/16/redis-sentinel/" rel="prev" title="Redis一主二从三哨兵">
-                Redis一主二从三哨兵 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -477,7 +472,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-Redis源码下载及安装"><span class="nav-number">1.</span> <span class="nav-text">1. Redis源码下载及安装</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-配置开机自启动"><span class="nav-number">2.</span> <span class="nav-text">2. 配置开机自启动</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-允许远程和设置密码"><span class="nav-number">3.</span> <span class="nav-text">3. 允许远程和设置密码</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-RocketMQ介绍"><span class="nav-number">1.</span> <span class="nav-text">1.RocketMQ介绍</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-下载RocketMQ"><span class="nav-number">2.</span> <span class="nav-text">2.下载RocketMQ</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-启动"><span class="nav-number">3.</span> <span class="nav-text">3.启动</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-测试"><span class="nav-number">4.</span> <span class="nav-text">4.测试</span></a></li></ol></div>
             
 
           </div>

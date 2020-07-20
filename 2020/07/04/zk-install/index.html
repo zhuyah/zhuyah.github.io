@@ -87,7 +87,7 @@
 <meta property="og:description" content="1. Java安装及配置下载Java及配置环境变量 1234567891011wget https:&#x2F;&#x2F;download.oracle.com&#x2F;otn&#x2F;java&#x2F;jdk&#x2F;8u251-b08&#x2F;3d5a2bb8f8d4428bbe94aed7ec7ae784&#x2F;jdk-8u251-linux-x64.tar.gz?AuthP">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-07-04T12:57:37.000Z">
-<meta property="article:modified_time" content="2020-07-04T13:08:25.196Z">
+<meta property="article:modified_time" content="2020-07-05T01:48:22.136Z">
 <meta property="article:author" content="Zhuyah">
 <meta name="twitter:card" content="summary">
 
@@ -305,7 +305,7 @@
 <h5 id="2-ZooKeeper下载"><a href="#2-ZooKeeper下载" class="headerlink" title="2. ZooKeeper下载"></a>2. ZooKeeper下载</h5><p><font color="#dd0000">下载带bin的文件，其已经包含所有jar文件</font>，如果下载源码，还需要一些其他安装</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">apache-zookeeper-[version].tar.gz</span><br><span class="line"></span><br><span class="line">    Contains all the source files which can be built by running:</span><br><span class="line">    mvn clean install</span><br><span class="line"></span><br><span class="line">    To generate an aggregated apidocs for zookeeper-server and zookeeper-jute:</span><br><span class="line">    mvn javadoc:aggregate</span><br><span class="line">    (generated files will be at target&#x2F;site&#x2F;apidocs)</span><br><span class="line"></span><br><span class="line">apache-zookeeper-[version]-bin.tar.gz</span><br><span class="line"></span><br><span class="line">    Contains all the jar files required to run ZooKeeper</span><br><span class="line">    Full documentation can also be found in the docs folder</span><br></pre></td></tr></table></figure>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">curl -O http:&#x2F;&#x2F;mirror.bit.edu.cn&#x2F;apache&#x2F;zookeeper&#x2F;zookeeper-3.6.1&#x2F;apache-zookeeper-3.6.1-bin.tar.gz</span><br><span class="line">或</span><br><span class="line">wget http:&#x2F;&#x2F;mirror.bit.edu.cn&#x2F;apache&#x2F;zookeeper&#x2F;zookeeper-3.6.1&#x2F;apache-zookeeper-3.6.1-bin.tar.gz</span><br></pre></td></tr></table></figure>
-<h6 id="3-解压及安装"><a href="#3-解压及安装" class="headerlink" title="3. 解压及安装"></a>3. 解压及安装</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">tar -xzvf apache-zookeeper-3.6.1.tar.gz -C &#x2F;usr&#x2F;local&#x2F;</span><br><span class="line">进入conf文件夹，复制配置文件，默认配置文件名为zoo.cfg</span><br><span class="line">cp zoo_sample.cfg zoo.cfg  </span><br><span class="line">修改</span><br><span class="line">dataDir&#x3D;&#x2F;usr&#x2F;local&#x2F;apache-zookeeper-3.6.1-bin&#x2F;dataDir</span><br><span class="line">dataLogDir&#x3D;&#x2F;usr&#x2F;local&#x2F;apache-zookeeper-3.6.1-bin&#x2F;dataLogDir</span><br></pre></td></tr></table></figure>
+<h5 id="3-解压及安装"><a href="#3-解压及安装" class="headerlink" title="3. 解压及安装"></a>3. 解压及安装</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">tar -xzvf apache-zookeeper-3.6.1.tar.gz -C &#x2F;usr&#x2F;local&#x2F;</span><br><span class="line">进入conf文件夹，复制配置文件，默认配置文件名为zoo.cfg</span><br><span class="line">cp zoo_sample.cfg zoo.cfg  </span><br><span class="line">修改</span><br><span class="line">dataDir&#x3D;&#x2F;usr&#x2F;local&#x2F;apache-zookeeper-3.6.1-bin&#x2F;dataDir</span><br><span class="line">dataLogDir&#x3D;&#x2F;usr&#x2F;local&#x2F;apache-zookeeper-3.6.1-bin&#x2F;dataLogDir</span><br></pre></td></tr></table></figure>
 
 <p>配置环境变量：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">export ZK_HOME&#x3D;&#x2F;usr&#x2F;local&#x2F;zookeeper&#x2F;apache-zookeeper-3.6.1-bin</span><br><span class="line">export PATH&#x3D;$ZK_HOME&#x2F;bin:$PATH</span><br><span class="line"></span><br><span class="line"># 刷新环境变量</span><br><span class="line">source &#x2F;etc&#x2F;profile</span><br></pre></td></tr></table></figure>
@@ -345,6 +345,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/07/20/RockeMQ-Introduce/" rel="prev" title="RockeMQ简单安装">
+                RockeMQ简单安装 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -421,7 +425,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-count">7</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -458,7 +462,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-Java安装及配置"><span class="nav-number">1.</span> <span class="nav-text">1. Java安装及配置</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-ZooKeeper下载"><span class="nav-number">2.</span> <span class="nav-text">2. ZooKeeper下载</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#3-解压及安装"><span class="nav-number">2.1.</span> <span class="nav-text">3. 解压及安装</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-Java安装及配置"><span class="nav-number">1.</span> <span class="nav-text">1. Java安装及配置</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-ZooKeeper下载"><span class="nav-number">2.</span> <span class="nav-text">2. ZooKeeper下载</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-解压及安装"><span class="nav-number">3.</span> <span class="nav-text">3. 解压及安装</span></a></li></ol></div>
             
 
           </div>

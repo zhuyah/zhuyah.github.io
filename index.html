@@ -229,6 +229,148 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/07/20/RockeMQ-Introduce/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Zhuyah">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zhuyah">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/07/20/RockeMQ-Introduce/" itemprop="url">RockeMQ简单安装</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-07-20T10:24:35-04:00">
+                2020-07-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h5 id="1-RocketMQ介绍"><a href="#1-RocketMQ介绍" class="headerlink" title="1.RocketMQ介绍"></a>1.RocketMQ介绍</h5><blockquote>
+<p>RocketMQ是一个纯Java开发的，分布式的消息队列中间件，具有低延迟，高并发，高可用等特点。</p>
+</blockquote>
+<h5 id="2-下载RocketMQ"><a href="#2-下载RocketMQ" class="headerlink" title="2.下载RocketMQ"></a>2.下载RocketMQ</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">wget https:&#x2F;&#x2F;mirror.bit.edu.cn&#x2F;apache&#x2F;rocketmq&#x2F;4.7.1&#x2F;rocketmq-all-4.7.1-bin-release.zip</span><br><span class="line"></span><br><span class="line">unzip rocketmq-all-4.7.1-bin-release.zip</span><br><span class="line"></span><br><span class="line">#配置JDK vi &#x2F;etc&#x2F;profile,最后面添加</span><br><span class="line">export JAVA_HOME&#x3D;&#x2F;opt&#x2F;software&#x2F;jdk1.8.0_251</span><br><span class="line">export CLASSPATH&#x3D;$:CLASSPATH:$JAVA_HOME&#x2F;lib&#x2F;</span><br><span class="line">export PATH&#x3D;$PATH:$JAVA_HOME&#x2F;bin</span><br><span class="line"></span><br><span class="line">source &#x2F;etc&#x2F;profile</span><br></pre></td></tr></table></figure>
+<h5 id="3-启动"><a href="#3-启动" class="headerlink" title="3.启动"></a>3.启动</h5><p>由于测试，修改启动参数，vi runserver.sh，vi runbroker.sh</p>
+<blockquote>
+<p>JAVA_OPT=”${JAVA_OPT} -server -Xms4g -Xmx4g -Xmn2g -XX:MetaspaceSize=128m -XX:MaxMetaspaceSize=320m”</p>
+</blockquote>
+<p>修改为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">JAVA_OPT&#x3D;&quot;$&#123;JAVA_OPT&#125; -server -Xms256m -Xmx256m -Xmn128m -XX:MetaspaceSize&#x3D;128m -XX:MaxMetaspaceSize&#x3D;320m&quot;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>JAVA_OPT=”${JAVA_OPT} -server -Xms8g -Xmx8g -Xmn4g”</p>
+</blockquote>
+<p>修改为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">JAVA_OPT&#x3D;&quot;$&#123;JAVA_OPT&#125; -server -Xms256m -Xmx256m -Xmn128m&quot;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">nohup bin&#x2F;mqnamesrv &amp;</span><br><span class="line">nohup sh bin&#x2F;mqbroker -n localhost:9876 &amp;</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/07/20/RockeMQ-Introduce/20200720221430.png" alt></p>
+<h5 id="4-测试"><a href="#4-测试" class="headerlink" title="4.测试"></a>4.测试</h5><p>Producer:</p>
+<p><img src="/2020/07/20/RockeMQ-Introduce/20200720221954.png" alt="20200720221954"></p>
+<p>Consumer:</p>
+<p><img src="/2020/07/20/RockeMQ-Introduce/20200720222108.png" alt="20200720222108"></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/07/04/zk-install/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -306,7 +448,7 @@
 <h5 id="2-ZooKeeper下载"><a href="#2-ZooKeeper下载" class="headerlink" title="2. ZooKeeper下载"></a>2. ZooKeeper下载</h5><p><font color="#dd0000">下载带bin的文件，其已经包含所有jar文件</font>，如果下载源码，还需要一些其他安装</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">apache-zookeeper-[version].tar.gz</span><br><span class="line"></span><br><span class="line">    Contains all the source files which can be built by running:</span><br><span class="line">    mvn clean install</span><br><span class="line"></span><br><span class="line">    To generate an aggregated apidocs for zookeeper-server and zookeeper-jute:</span><br><span class="line">    mvn javadoc:aggregate</span><br><span class="line">    (generated files will be at target&#x2F;site&#x2F;apidocs)</span><br><span class="line"></span><br><span class="line">apache-zookeeper-[version]-bin.tar.gz</span><br><span class="line"></span><br><span class="line">    Contains all the jar files required to run ZooKeeper</span><br><span class="line">    Full documentation can also be found in the docs folder</span><br></pre></td></tr></table></figure>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">curl -O http:&#x2F;&#x2F;mirror.bit.edu.cn&#x2F;apache&#x2F;zookeeper&#x2F;zookeeper-3.6.1&#x2F;apache-zookeeper-3.6.1-bin.tar.gz</span><br><span class="line">或</span><br><span class="line">wget http:&#x2F;&#x2F;mirror.bit.edu.cn&#x2F;apache&#x2F;zookeeper&#x2F;zookeeper-3.6.1&#x2F;apache-zookeeper-3.6.1-bin.tar.gz</span><br></pre></td></tr></table></figure>
-<h6 id="3-解压及安装"><a href="#3-解压及安装" class="headerlink" title="3. 解压及安装"></a>3. 解压及安装</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">tar -xzvf apache-zookeeper-3.6.1.tar.gz -C &#x2F;usr&#x2F;local&#x2F;</span><br><span class="line">进入conf文件夹，复制配置文件，默认配置文件名为zoo.cfg</span><br><span class="line">cp zoo_sample.cfg zoo.cfg  </span><br><span class="line">修改</span><br><span class="line">dataDir&#x3D;&#x2F;usr&#x2F;local&#x2F;apache-zookeeper-3.6.1-bin&#x2F;dataDir</span><br><span class="line">dataLogDir&#x3D;&#x2F;usr&#x2F;local&#x2F;apache-zookeeper-3.6.1-bin&#x2F;dataLogDir</span><br></pre></td></tr></table></figure>
+<h5 id="3-解压及安装"><a href="#3-解压及安装" class="headerlink" title="3. 解压及安装"></a>3. 解压及安装</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">tar -xzvf apache-zookeeper-3.6.1.tar.gz -C &#x2F;usr&#x2F;local&#x2F;</span><br><span class="line">进入conf文件夹，复制配置文件，默认配置文件名为zoo.cfg</span><br><span class="line">cp zoo_sample.cfg zoo.cfg  </span><br><span class="line">修改</span><br><span class="line">dataDir&#x3D;&#x2F;usr&#x2F;local&#x2F;apache-zookeeper-3.6.1-bin&#x2F;dataDir</span><br><span class="line">dataLogDir&#x3D;&#x2F;usr&#x2F;local&#x2F;apache-zookeeper-3.6.1-bin&#x2F;dataLogDir</span><br></pre></td></tr></table></figure>
 
 <p>配置环境变量：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">export ZK_HOME&#x3D;&#x2F;usr&#x2F;local&#x2F;zookeeper&#x2F;apache-zookeeper-3.6.1-bin</span><br><span class="line">export PATH&#x3D;$ZK_HOME&#x2F;bin:$PATH</span><br><span class="line"></span><br><span class="line"># 刷新环境变量</span><br><span class="line">source &#x2F;etc&#x2F;profile</span><br></pre></td></tr></table></figure>
@@ -1108,7 +1250,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-count">7</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
